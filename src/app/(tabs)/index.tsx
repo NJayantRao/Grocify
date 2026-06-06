@@ -1,13 +1,10 @@
+import CompletedItems from "@/components/CompletedItems";
+import ListHeroCard from "@/components/ListHeroCard";
+import PendingItemCard from "@/components/PendingItemsCard";
+import TabScreenBackground from "@/components/TabScreenBg";
+import { useGroceryStore } from "@/store/grocery-store";
 import { useAuth, useClerk, useUser, useUserProfileModal } from "@clerk/expo";
-import { UserButton } from "@clerk/expo/native";
-import {
-  ActivityIndicator,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import SignInScreen from "../(auth)/sign-in";
 
 export default function MainScreen() {
@@ -18,7 +15,7 @@ export default function MainScreen() {
 
   if (!isLoaded) {
     return (
-      <View style={styles.centered}>
+      <View className="flex-1 justify-center items-center">
         <ActivityIndicator size="large" />
       </View>
     );
@@ -27,97 +24,33 @@ export default function MainScreen() {
   if (!isSignedIn) {
     return <SignInScreen />;
   }
+  const { items } = useGroceryStore();
+
+  const pendingItems = items.filter((item) => !item.purchased);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Welcome</Text>
-        <View
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: 22,
-            overflow: "hidden",
-          }}
-        >
-          <UserButton />
+    <FlatList
+      className="flex-1 bg-background "
+      data={pendingItems}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => <PendingItemCard item={item} />}
+      contentContainerStyle={{ padding: 20, gap: 14 }}
+      contentInsetAdjustmentBehavior="automatic"
+      ListHeaderComponent={
+        <View style={{ gap: 14, paddingTop: 20 }}>
+          <TabScreenBackground />
+          <ListHeroCard />
+          <View className="flex-row items-center justify-between px-1">
+            <Text className="text-sm font-semibold uppercase tracking-[1px] text-muted-foreground">
+              Shopping items
+            </Text>
+            <Text className="text-sm text-muted-foreground">
+              {pendingItems.length} active
+            </Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.profileCard}>
-        {user?.imageUrl && (
-          <Image source={{ uri: user.imageUrl }} style={styles.avatar} />
-        )}
-        <View>
-          <Text>Hello {user?.id}</Text>
-        </View>
-      </View>
-      <TouchableOpacity style={styles.linkButton} onPress={presentUserProfile}>
-        <Text style={styles.linkButtonText}>Manage Profile</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.linkButton, { backgroundColor: "#666" }]}
-        onPress={() => signOut()}
-      >
-        <Text style={styles.linkButtonText}>Sign Out</Text>
-      </TouchableOpacity>
-    </View>
+      }
+      ListFooterComponent={<CompletedItems />}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  centered: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 40,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    padding: 20,
-    paddingTop: 60,
-    gap: 16,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-  },
-  profileCard: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: "#f5f5f5",
-    borderRadius: 12,
-    gap: 12,
-  },
-  avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: "600",
-  },
-  email: {
-    fontSize: 14,
-    color: "#666",
-  },
-  linkButton: {
-    backgroundColor: "#007AFF",
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-  },
-  linkButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-});
