@@ -6,7 +6,9 @@ const useSocialAuth = () => {
   const [loadingStrategy, setLoadingStrategy] = useState<string | null>(null);
   const { startSSOFlow } = useSSO();
 
-  const handleSocialAuth = async (strategy: "oauth_google" | "oauth_github" ) => {
+  const handleSocialAuth = async (
+    strategy: "oauth_google" | "oauth_github"
+  ) => {
     if (loadingStrategy) return; // guard againts concurrent flows
 
     setLoadingStrategy(strategy);
@@ -15,7 +17,10 @@ const useSocialAuth = () => {
       const { createdSessionId, setActive } = await startSSOFlow({ strategy });
 
       if (!createdSessionId || !setActive) {
-        Alert.alert("Sign-in incomplete", "Sign-in did not complete. Please try again.");
+        Alert.alert(
+          "Sign-in incomplete",
+          "Sign-in did not complete. Please try again."
+        );
         return;
       }
 

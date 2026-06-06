@@ -3,7 +3,10 @@ import { db } from "./db/client";
 import { groceryItems } from "./db/schema";
 
 export const listGroceryItems = async () => {
-  const rows = await db.select().from(groceryItems).orderBy(desc(groceryItems.updated_at));
+  const rows = await db
+    .select()
+    .from(groceryItems)
+    .orderBy(desc(groceryItems.updated_at));
 
   return rows;
 };
@@ -30,7 +33,10 @@ export const createGroceryItem = async (input: {
   return rows[0];
 };
 
-export const setGroceryItemPurchased = async (id: string, purchased: boolean) => {
+export const setGroceryItemPurchased = async (
+  id: string,
+  purchased: boolean
+) => {
   const rows = await db
     .update(groceryItems)
     .set({ purchased, updated_at: Date.now() })
@@ -41,10 +47,16 @@ export const setGroceryItemPurchased = async (id: string, purchased: boolean) =>
   return rows[0];
 };
 
-export const updateGroceryItemQuantity = async (id: string, quantity: number) => {
+export const updateGroceryItemQuantity = async (
+  id: string,
+  quantity: number
+) => {
   const rows = await db
     .update(groceryItems)
-    .set({ quantity: Math.max(1, Math.floor(quantity)), updated_at: Date.now() })
+    .set({
+      quantity: Math.max(1, Math.floor(quantity)),
+      updated_at: Date.now(),
+    })
     .where(eq(groceryItems.id, id))
     .returning();
 
