@@ -1,6 +1,7 @@
 import { useAuth, useUser, useClerk, useUserProfileModal } from '@clerk/expo'
-import { AuthView, UserButton } from '@clerk/expo/native'
+import { UserButton } from '@clerk/expo/native'
 import { Text, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import SignInScreen from './(auth)/sign-in'
 
 export default function MainScreen() {
   const { isSignedIn, isLoaded } = useAuth({ treatPendingAsSignedOut: false })
@@ -17,7 +18,7 @@ export default function MainScreen() {
   }
 
   if (!isSignedIn) {
-    return <AuthView mode="signInOrUp" />
+    return <SignInScreen />
   }
 
   return (
