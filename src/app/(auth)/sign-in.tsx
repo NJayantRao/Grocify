@@ -12,7 +12,10 @@ export default function SignInScreen() {
   const isLoading = isGitHubClicked || isGoogleClicked;
 
   return (
-    <SafeAreaView className="flex-1 bg-primary dark:bg-secondary" edges={["top"]}>
+    <SafeAreaView
+      className="flex-1 bg-primary dark:bg-secondary"
+      edges={["top"]}
+    >
       {/* Decorative blobs */}
       <View className="absolute -left-16 top-12 h-56 w-56 rounded-full bg-primary/80 dark:bg-background/40" />
       <View className="absolute right-[-74px] top-40 h-72 w-72 rounded-full bg-primary/70 dark:bg-background/35" />
@@ -58,7 +61,8 @@ export default function SignInScreen() {
         </View>
 
         <Text className="mt-2 text-center text-sm leading-6 text-muted-foreground">
-          Choose a social provider to jump into your personalized grocery experience.
+          Choose a social provider to jump into your personalized grocery
+          experience.
         </Text>
 
         {/* Auth buttons */}
@@ -78,10 +82,11 @@ export default function SignInScreen() {
             <Text className="ml-3 flex-1 text-base font-semibold text-card-foreground">
               {isGoogleClicked ? "Connecting…" : "Continue with Google"}
             </Text>
-            {isGoogleClicked
-              ? <FontAwesome6 name="spinner" size={16} color="#5f6e66" />
-              : <FontAwesome6 name="chevron-right" size={14} color="#5f6e66" />
-            }
+            {isGoogleClicked ? (
+              <FontAwesome6 name="spinner" size={16} color="#5f6e66" />
+            ) : (
+              <FontAwesome6 name="chevron-right" size={14} color="#5f6e66" />
+            )}
           </Pressable>
 
           {/* GitHub */}
@@ -96,10 +101,11 @@ export default function SignInScreen() {
             <Text className="ml-3 flex-1 text-base font-semibold text-card-foreground">
               {isGitHubClicked ? "Connecting…" : "Continue with GitHub"}
             </Text>
-            {isGitHubClicked
-              ? <FontAwesome6 name="spinner" size={16} color="#5f6e66" />
-              : <FontAwesome6 name="chevron-right" size={14} color="#5f6e66" />
-            }
+            {isGitHubClicked ? (
+              <FontAwesome6 name="spinner" size={16} color="#5f6e66" />
+            ) : (
+              <FontAwesome6 name="chevron-right" size={14} color="#5f6e66" />
+            )}
           </Pressable>
         </View>
 
@@ -107,12 +113,17 @@ export default function SignInScreen() {
         <View className="mt-5 flex-row justify-center gap-3">
           {[
             { icon: "shield-halved", label: "Secure" },
-            { icon: "bolt",          label: "Instant" },
-            { icon: "lock",          label: "Private" },
+            { icon: "bolt", label: "Instant" },
+            { icon: "lock", label: "Private" },
           ].map((f) => (
-            <View key={f.label} className="flex-row items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5">
+            <View
+              key={f.label}
+              className="flex-row items-center gap-1.5 rounded-full bg-secondary px-3 py-1.5"
+            >
               <FontAwesome6 name={f.icon} size={10} color="#2a9a50" />
-              <Text className="text-xs font-medium text-secondary-foreground">{f.label}</Text>
+              <Text className="text-xs font-medium text-secondary-foreground">
+                {f.label}
+              </Text>
             </View>
           ))}
         </View>

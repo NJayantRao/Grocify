@@ -3,15 +3,15 @@ import ListHeroCard from "@/components/ListHeroCard";
 import PendingItemCard from "@/components/PendingItemsCard";
 import TabScreenBackground from "@/components/TabScreenBg";
 import { useGroceryStore } from "@/store/grocery-store";
-import { useAuth, useClerk, useUser, useUserProfileModal } from "@clerk/expo";
+import { useAuth } from "@clerk/expo";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import SignInScreen from "../(auth)/sign-in";
 
 export default function MainScreen() {
   const { isSignedIn, isLoaded } = useAuth({ treatPendingAsSignedOut: false });
-  const { user } = useUser();
-  const { signOut } = useClerk();
-  const { presentUserProfile } = useUserProfileModal();
+  const { items } = useGroceryStore();
+
+  const pendingItems = items.filter((item) => !item.purchased);
 
   if (!isLoaded) {
     return (
@@ -24,9 +24,6 @@ export default function MainScreen() {
   if (!isSignedIn) {
     return <SignInScreen />;
   }
-  const { items } = useGroceryStore();
-
-  const pendingItems = items.filter((item) => !item.purchased);
 
   return (
     <FlatList

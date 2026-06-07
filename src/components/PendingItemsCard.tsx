@@ -15,12 +15,15 @@ const priorityPillText = {
 };
 
 // Category icons using FontAwesome6
-const categoryIcon: Record<string, { icon: string; color: string; bg: string }> = {
-  Produce:  { icon: "carrot",        color: "#2a9a50", bg: "bg-secondary" },
-  Dairy:    { icon: "droplet",       color: "#2a7abf", bg: "bg-blue-100" },
-  Bakery:   { icon: "wheat-awn",     color: "#c08030", bg: "bg-amber-100" },
-  Pantry:   { icon: "jar",           color: "#9060c0", bg: "bg-purple-100" },
-  Snacks:   { icon: "cookie-bite",   color: "#d05030", bg: "bg-red-100" },
+const categoryIcon: Record<
+  string,
+  { icon: string; color: string; bg: string }
+> = {
+  Produce: { icon: "carrot", color: "#2a9a50", bg: "bg-secondary" },
+  Dairy: { icon: "droplet", color: "#2a7abf", bg: "bg-blue-100" },
+  Bakery: { icon: "wheat-awn", color: "#c08030", bg: "bg-amber-100" },
+  Pantry: { icon: "jar", color: "#9060c0", bg: "bg-purple-100" },
+  Snacks: { icon: "cookie-bite", color: "#d05030", bg: "bg-red-100" },
 };
 
 const priorityIcons: Record<string, string> = {
@@ -31,7 +34,11 @@ const priorityIcons: Record<string, string> = {
 
 const PendingItemCard = ({ item }: { item: GroceryItem }) => {
   const { removeItem, updateQuantity, togglePurchased } = useGroceryStore();
-  const catInfo = categoryIcon[item.category] ?? { icon: "tag", color: "#666", bg: "bg-secondary" };
+  const catInfo = categoryIcon[item.category] ?? {
+    icon: "tag",
+    color: "#666",
+    bg: "bg-secondary",
+  };
 
   return (
     <View className="rounded-3xl border border-border bg-card p-4">
@@ -50,13 +57,23 @@ const PendingItemCard = ({ item }: { item: GroceryItem }) => {
               {item.name}
             </Text>
             {/* Priority badge */}
-            <View className={`flex-row items-center gap-1 rounded-full px-2.5 py-1 ${priorityPillBg[item.priority]}`}>
+            <View
+              className={`flex-row items-center gap-1 rounded-full px-2.5 py-1 ${priorityPillBg[item.priority]}`}
+            >
               <FontAwesome6
                 name={priorityIcons[item.priority]}
                 size={9}
-                color={item.priority === "high" ? "#c0392b" : item.priority === "medium" ? "#c07800" : "#276e3b"}
+                color={
+                  item.priority === "high"
+                    ? "#c0392b"
+                    : item.priority === "medium"
+                      ? "#c07800"
+                      : "#276e3b"
+                }
               />
-              <Text className={`text-xs font-bold uppercase ${priorityPillText[item.priority]}`}>
+              <Text
+                className={`text-xs font-bold uppercase ${priorityPillText[item.priority]}`}
+              >
                 {item.priority}
               </Text>
             </View>
@@ -64,8 +81,14 @@ const PendingItemCard = ({ item }: { item: GroceryItem }) => {
 
           {/* Category chip */}
           <View className="mt-2 flex-row items-center gap-2">
-            <View className={`flex-row items-center gap-1.5 rounded-full ${catInfo.bg} px-3 py-1`}>
-              <FontAwesome6 name={catInfo.icon} size={10} color={catInfo.color} />
+            <View
+              className={`flex-row items-center gap-1.5 rounded-full ${catInfo.bg} px-3 py-1`}
+            >
+              <FontAwesome6
+                name={catInfo.icon}
+                size={10}
+                color={catInfo.color}
+              />
               <Text className="text-xs font-semibold text-secondary-foreground">
                 {item.category}
               </Text>
@@ -76,7 +99,9 @@ const PendingItemCard = ({ item }: { item: GroceryItem }) => {
           <View className="mt-3 flex-row items-center gap-2">
             <Pressable
               className="h-8 w-8 items-center justify-center rounded-xl border border-border bg-muted"
-              onPress={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+              onPress={() =>
+                updateQuantity(item.id, Math.max(1, item.quantity - 1))
+              }
             >
               <FontAwesome6 name="minus" size={11} color="#3b5a4a" />
             </Pressable>

@@ -7,7 +7,9 @@ const ListHeroCard = () => {
 
   const completedCount = items.filter((item) => item.purchased).length;
   const pendingCount = items.length - completedCount;
-  const completionRate = items.length ? Math.round((completedCount / items.length) * 100) : 0;
+  const completionRate = items.length
+    ? Math.round((completedCount / items.length) * 100)
+    : 0;
 
   return (
     <View className="rounded-3xl bg-primary p-5">
@@ -43,7 +45,11 @@ const ListHeroCard = () => {
         </View>
         <Text className="text-sm text-primary-foreground/40">·</Text>
         <View className="flex-row items-center gap-1.5">
-          <FontAwesome6 name="circle-check" size={12} color="rgba(255,255,255,0.7)" />
+          <FontAwesome6
+            name="circle-check"
+            size={12}
+            color="rgba(255,255,255,0.7)"
+          />
           <Text className="text-sm text-primary-foreground/80">
             {completedCount} done
           </Text>
@@ -54,7 +60,9 @@ const ListHeroCard = () => {
       <View className="mt-4">
         <View className="mb-1.5 flex-row justify-between">
           <Text className="text-xs text-primary-foreground/60">Progress</Text>
-          <Text className="text-xs font-bold text-primary-foreground/80">{completionRate}%</Text>
+          <Text className="text-xs font-bold text-primary-foreground/80">
+            {completionRate}%
+          </Text>
         </View>
         <View className="overflow-hidden rounded-full bg-white/25">
           <View

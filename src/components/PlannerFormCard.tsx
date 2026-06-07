@@ -1,23 +1,33 @@
-import { GroceryCategory, GroceryPriority, useGroceryStore } from "@/store/grocery-store";
+import {
+  GroceryCategory,
+  GroceryPriority,
+  useGroceryStore,
+} from "@/store/grocery-store";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 
-const categories: GroceryCategory[] = ["Produce", "Dairy", "Bakery", "Pantry", "Snacks"];
+const categories: GroceryCategory[] = [
+  "Produce",
+  "Dairy",
+  "Bakery",
+  "Pantry",
+  "Snacks",
+];
 const priorities: GroceryPriority[] = ["low", "medium", "high"];
 
 const categoryMeta: Record<string, { icon: string; emoji: string }> = {
-  Produce: { icon: "carrot",      emoji: "🥦" },
-  Dairy:   { icon: "droplet",     emoji: "🥛" },
-  Bakery:  { icon: "wheat-awn",   emoji: "🍞" },
-  Pantry:  { icon: "jar",         emoji: "🫙" },
-  Snacks:  { icon: "cookie-bite", emoji: "🍪" },
+  Produce: { icon: "carrot", emoji: "🥦" },
+  Dairy: { icon: "droplet", emoji: "🥛" },
+  Bakery: { icon: "wheat-awn", emoji: "🍞" },
+  Pantry: { icon: "jar", emoji: "🫙" },
+  Snacks: { icon: "cookie-bite", emoji: "🍪" },
 };
 
 const priorityMeta: Record<string, { icon: string; label: string }> = {
-  low:    { icon: "seedling",               label: "Low" },
-  medium: { icon: "triangle-exclamation",   label: "Medium" },
-  high:   { icon: "fire",                   label: "High" },
+  low: { icon: "seedling", label: "Low" },
+  medium: { icon: "triangle-exclamation", label: "Medium" },
+  high: { icon: "fire", label: "High" },
 };
 
 const PlannerFormCard = () => {
@@ -34,8 +44,16 @@ const PlannerFormCard = () => {
   };
 
   const createItem = async () => {
-    await addItem({ name: name.trim(), category, priority, quantity: Number(quantity) });
-    setName(""); setQuantity("1"); setCategory("Produce"); setPriority("medium");
+    await addItem({
+      name: name.trim(),
+      category,
+      priority,
+      quantity: Number(quantity),
+    });
+    setName("");
+    setQuantity("1");
+    setCategory("Produce");
+    setPriority("medium");
   };
 
   return (
@@ -59,7 +77,9 @@ const PlannerFormCard = () => {
       </View>
 
       {/* Quantity */}
-      <Text className="mt-4 text-sm font-semibold text-foreground">Quantity</Text>
+      <Text className="mt-4 text-sm font-semibold text-foreground">
+        Quantity
+      </Text>
       <View className="mt-2 flex-row items-center gap-3">
         <Pressable
           className="h-11 w-11 items-center justify-center rounded-xl border border-border bg-muted"
@@ -86,7 +106,9 @@ const PlannerFormCard = () => {
       </View>
 
       {/* Category */}
-      <Text className="mt-4 text-sm font-semibold text-foreground">Category</Text>
+      <Text className="mt-4 text-sm font-semibold text-foreground">
+        Category
+      </Text>
       <View className="mt-2 flex-row flex-wrap gap-2">
         {categories.map((option) => {
           const active = option === category;
@@ -97,8 +119,14 @@ const PlannerFormCard = () => {
               onPress={() => setCategory(option)}
               className={`flex-row items-center gap-1.5 rounded-full px-3.5 py-2 ${active ? "bg-primary" : "bg-secondary"}`}
             >
-              <FontAwesome6 name={meta.icon} size={11} color={active ? "#fff" : "#486856"} />
-              <Text className={`text-sm font-semibold ${active ? "text-primary-foreground" : "text-secondary-foreground"}`}>
+              <FontAwesome6
+                name={meta.icon}
+                size={11}
+                color={active ? "#fff" : "#486856"}
+              />
+              <Text
+                className={`text-sm font-semibold ${active ? "text-primary-foreground" : "text-secondary-foreground"}`}
+              >
                 {option}
               </Text>
             </Pressable>
@@ -107,7 +135,9 @@ const PlannerFormCard = () => {
       </View>
 
       {/* Priority */}
-      <Text className="mt-4 text-sm font-semibold text-foreground">Priority</Text>
+      <Text className="mt-4 text-sm font-semibold text-foreground">
+        Priority
+      </Text>
       <View className="mt-2 flex-row gap-2">
         {priorities.map((option) => {
           const active = option === priority;
@@ -118,8 +148,14 @@ const PlannerFormCard = () => {
               onPress={() => setPriority(option)}
               className={`flex-1 flex-row items-center justify-center gap-1.5 rounded-2xl py-2.5 ${active ? "bg-primary" : "bg-secondary"}`}
             >
-              <FontAwesome6 name={meta.icon} size={12} color={active ? "#ffffff" : "#486856"} />
-              <Text className={`text-sm font-semibold capitalize ${active ? "text-primary-foreground" : "text-secondary-foreground"}`}>
+              <FontAwesome6
+                name={meta.icon}
+                size={12}
+                color={active ? "#ffffff" : "#486856"}
+              />
+              <Text
+                className={`text-sm font-semibold capitalize ${active ? "text-primary-foreground" : "text-secondary-foreground"}`}
+              >
                 {meta.label}
               </Text>
             </Pressable>
@@ -133,8 +169,14 @@ const PlannerFormCard = () => {
         onPress={createItem}
         disabled={!canCreate}
       >
-        <FontAwesome6 name="circle-plus" size={16} color={canCreate ? "#ffffff" : "#7a9386"} />
-        <Text className={`text-base font-semibold ${canCreate ? "text-primary-foreground" : "text-muted-foreground"}`}>
+        <FontAwesome6
+          name="circle-plus"
+          size={16}
+          color={canCreate ? "#ffffff" : "#7a9386"}
+        />
+        <Text
+          className={`text-base font-semibold ${canCreate ? "text-primary-foreground" : "text-muted-foreground"}`}
+        >
           Add to Grocery List
         </Text>
       </Pressable>
@@ -142,7 +184,9 @@ const PlannerFormCard = () => {
       {error && (
         <View className="mt-3 flex-row items-center gap-2 rounded-2xl border border-destructive bg-destructive px-3 py-2">
           <FontAwesome6 name="circle-exclamation" size={14} color="#d45f58" />
-          <Text className="text-sm font-medium text-destructive-foreground">{error}</Text>
+          <Text className="text-sm font-medium text-destructive-foreground">
+            {error}
+          </Text>
         </View>
       )}
     </View>

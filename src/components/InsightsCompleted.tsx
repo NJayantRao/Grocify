@@ -3,7 +3,8 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
 
 const CompletedItems = () => {
-  const { removeItem, togglePurchased, items, clearPurchased } = useGroceryStore();
+  const { removeItem, togglePurchased, items, clearPurchased } =
+    useGroceryStore();
   const completedItems = items.filter((item) => item.purchased);
 
   if (!completedItems.length) return null;
@@ -38,7 +39,9 @@ const CompletedItems = () => {
             >
               <FontAwesome6 name="check" size={11} color="#ffffff" />
             </Pressable>
-            <Text className="flex-1 text-base text-muted-foreground line-through">{item.name}</Text>
+            <Text className="flex-1 text-base text-muted-foreground line-through">
+              {item.name}
+            </Text>
           </View>
           <Pressable
             onPress={() => removeItem(item.id)}

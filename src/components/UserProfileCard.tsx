@@ -15,7 +15,10 @@ const UserProfileCard = () => {
         {/* Avatar */}
         <View className="size-14 overflow-hidden rounded-2xl border-2 border-primary/20">
           {user?.imageUrl ? (
-            <Image source={{ uri: user.imageUrl }} style={{ width: "100%", height: "100%" }} />
+            <Image
+              source={{ uri: user.imageUrl }}
+              style={{ width: "100%", height: "100%" }}
+            />
           ) : (
             <View className="flex-1 items-center justify-center bg-secondary">
               <FontAwesome6 name="user" size={22} color="#2a9a50" />
@@ -30,7 +33,9 @@ const UserProfileCard = () => {
               Signed in
             </Text>
           </View>
-          <Text className="mt-0.5 text-lg font-bold text-foreground">{displayName}</Text>
+          <Text className="mt-0.5 text-lg font-bold text-foreground">
+            {displayName}
+          </Text>
           <Text className="text-sm text-muted-foreground">{email}</Text>
         </View>
 

@@ -26,7 +26,9 @@ const CompletedItems = () => {
             >
               <FontAwesome6 name="check" size={12} color="#ffffff" />
             </Pressable>
-            <Text className="text-base text-muted-foreground line-through">{item.name}</Text>
+            <Text className="text-base text-muted-foreground line-through">
+              {item.name}
+            </Text>
           </View>
 
           <Pressable
