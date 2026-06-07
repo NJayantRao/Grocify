@@ -1,33 +1,20 @@
 import { useGroceryStore } from "@/store/grocery-store";
-import { Text, View } from "react-native";
+import { FontAwesome6 } from "@expo/vector-icons";
+import { Pressable, Text, View } from "react-native";
 
-export default function InsightsPrioritySection() {
-  const { items } = useGroceryStore();
-  const highPriority = items.filter((item) => item.priority === "high" && !item.purchased).length;
-
-  const highPriorityTone =
-    highPriority === 0
-      ? "Everything critical is covered."
-      : "Handle these first for a smoother trip.";
+export default function InsightsCompletedSection() {
+  const { clearPurchased, items } = useGroceryStore();
+  const count = items.filter((i) => i.purchased).length;
 
   return (
-    <View className="rounded-3xl border border-border bg-card p-4">
-      <View className="flex-row items-center justify-between">
-        <Text className="text-sm font-semibold text-foreground">High priority remaining</Text>
-        <View
-          className={`rounded-full px-3 py-1 ${highPriority ? "bg-priority-high" : "bg-priority-low"}`}
-        >
-          <Text
-            className={`text-xs font-bold uppercase ${
-              highPriority ? "text-priority-high-foreground" : "text-priority-low-foreground"
-            }`}
-          >
-            {highPriority ? "Action" : "Clear"}
-          </Text>
-        </View>
-      </View>
-      <Text className="mt-1 text-3xl font-extrabold text-foreground">{highPriority}</Text>
-      <Text className="mt-1 text-sm text-muted-foreground">{highPriorityTone}</Text>
-    </View>
+    <Pressable
+      className="flex-row items-center justify-center gap-2 rounded-2xl bg-primary py-3.5"
+      onPress={clearPurchased}
+    >
+      <FontAwesome6 name="broom" size={15} color="#fff" />
+      <Text className="text-base font-semibold text-primary-foreground">
+        Clear {count > 0 ? `${count} ` : ""}Completed Items
+      </Text>
+    </Pressable>
   );
 }

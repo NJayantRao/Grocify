@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { desc, eq } from "drizzle-orm";
 import { db } from "./db/client";
 import { groceryItems } from "./db/schema";
@@ -20,7 +21,7 @@ export const createGroceryItem = async (input: {
   const rows = await db
     .insert(groceryItems)
     .values({
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       name: input.name,
       category: input.category,
       quantity: Math.max(1, input.quantity),
