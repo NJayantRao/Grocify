@@ -2,6 +2,7 @@ import InsightsCategorySection from "@/components/InsightsCategory";
 import InsightsCompletedSection from "@/components/InsightsCompleted";
 import InsightsPrioritySection from "@/components/InsightsPriorities";
 import InsightsStatsSection from "@/components/InsightsStats";
+import SentryFeedbackButton from "@/components/SentryFeedbackButton";
 import TabScreenBackground from "@/components/TabScreenBg";
 import UserProfileCard from "@/components/UserProfileCard";
 import { ScrollView } from "react-native";
@@ -22,6 +23,7 @@ const InsightsScreen = () => {
         <InsightsPrioritySection />
         <InsightsCompletedSection />
       </ScrollView>
+      <SentryFeedbackButton />
     </>
   );
 };
